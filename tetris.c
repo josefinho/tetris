@@ -7,7 +7,6 @@
 int main () {
 	screen_t* screen = create_screen();
 
-	display_screen(screen);
-	free_screen(screen);
+	receive_block_L (screen);
 	display_screen(screen);
 }
