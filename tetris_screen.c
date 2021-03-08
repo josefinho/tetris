@@ -37,9 +37,32 @@ void display_screen (screen_t* screen) {
 
 	for (int i = 0; i < SCREEN_HIGHT; i++) {
 		for (int j = 0; j < SCREEN_WIDTH; j++) {
-			printf ("%c", screen->dimensions[i][j]);
+			if (screen->dimensions[i][j] == 'X') {
+				printf (ANSI_COLOR_GREEN);
+				printf ("%c", screen->dimensions[i][j]);
+				printf (ANSI_COLOR_RESET);
+			}
+			else if (screen->dimensions[i][j] == 'O') {
+				printf (ANSI_COLOR_RED);
+				printf ("%c", screen->dimensions[i][j]);
+				printf (ANSI_COLOR_RESET);
+			}
+			else {
+				printf ("%c", screen->dimensions[i][j]);
+			}
 		}
 		putchar('\n');
+	}
+}
+
+void block_drop (screen_t* screen) {
+	for (int i = SCREEN_HIGHT - 1; i != 0; i--) {
+		for (int j = SCREEN_WIDTH - 1; j != 0; j--) {
+			if (screen->dimensions[i][j] == 'O') {
+				screen->dimensions[i + 1][j] = screen->dimensions[i][j];
+				screen->dimensions[i][j] = ' ';
+			}
+		}
 	}
 }
 
